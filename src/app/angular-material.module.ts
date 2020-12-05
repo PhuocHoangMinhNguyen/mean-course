@@ -12,6 +12,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatButtonModule,
         MatToolbarModule,
         MatExpansionModule,
-    ]
+    ],
 })
 export class AngularMaterialModule { }
