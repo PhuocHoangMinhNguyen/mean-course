@@ -50,6 +50,13 @@ export class PostsService {
             });
     }
 
+    updatePost(id: string, title: string, content: string) {
+        const post: Post = { id: id, title: title, content: content };
+        this.http.put(BACKEND_URL + "/" + id, post).subscribe(response => {
+            console.log(response);
+        })
+    }
+
     deletePost(postId: string) {
         this.http.delete(BACKEND_URL + "/" + postId)
             .subscribe(() => {
