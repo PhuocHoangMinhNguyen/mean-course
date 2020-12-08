@@ -47,7 +47,7 @@ export class PostsService {
     }
 
     deletePost(postId: string) {
-        this.http.delete(BACKEND_URL + postId)
+        this.http.delete(BACKEND_URL + "/" + postId)
             .subscribe(() => {
                 const updatedPosts = this.posts.filter(post => post.id !== postId);
                 this.posts = updatedPosts;
