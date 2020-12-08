@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -7,7 +8,7 @@ const Post = require('./models/post');
 const app = express();
 
 mongoose.connect(
-    "mongodb+srv://max:" + process.env.MONGO_ATLAS_PW + "@cluster0.yt8ea.mongodb.net/node-angular?retryWrites=true&w=majority",
+    "mongodb+srv://max:ewKcW28TfrJXGpK3@cluster0.yt8ea.mongodb.net/node-angular?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(() => {
     console.log('Connected to database')
@@ -17,6 +18,7 @@ mongoose.connect(
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/", express.static(path.join(__dirname, "angular")));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -37,7 +39,6 @@ app.post("/api/posts", (req, res, next) => {
         content: req.body.content
     });
     post.save().then(createdPost => {
-        console.log(result);
         res.status(201).json({
             message: 'Post added successfully',
             postId: createdPost._id
@@ -59,6 +60,10 @@ app.delete("/api/posts/:id", (req, res, next) => {
         console.log(result);
         res.status(200).json({ message: 'Post deleted!' });
     })
+});
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "angular", "index.html"));
 });
 
 module.exports = app;

@@ -3,10 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
 import { Post } from './post.model';
 
-const BACKEND_URL = environment.apiUrl + "/posts";
+const BACKEND_URL = "http://localhost:3000/api/posts";
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
