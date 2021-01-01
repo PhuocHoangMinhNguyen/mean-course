@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './auth/login/login.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { PostsModule } from './posts/posts.module';
 
@@ -15,6 +16,7 @@ import { PostsModule } from './posts/posts.module';
   declarations: [
     AppComponent,
     HeaderComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

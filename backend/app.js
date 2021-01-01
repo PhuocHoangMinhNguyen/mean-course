@@ -8,7 +8,7 @@ const postsRoutes = require("./routes/posts");
 const app = express();
 
 mongoose.connect(
-    "mongodb+srv://max:ewKcW28TfrJXGpK3@cluster0.yt8ea.mongodb.net/node-angular?retryWrites=true&w=majority",
+    "mongodb+srv://max:" + process.env.MONGO_ATLAS_PW + "@cluster0.yt8ea.mongodb.net/node-angular?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(() => {
     console.log('Connected to database')
