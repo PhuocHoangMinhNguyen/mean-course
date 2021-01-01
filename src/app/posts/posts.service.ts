@@ -28,7 +28,8 @@ export class PostsService {
                             id: post._id,
                             imagePath: post.imagePath
                         };
-                    }), maxPosts: postData.maxPosts
+                    }),
+                    maxPosts: postData.maxPosts
                 };
             })).subscribe(transformedPostData => {
                 this.posts = transformedPostData.posts;
@@ -45,10 +46,10 @@ export class PostsService {
 
     getPost(id: string) {
         return this.http.get<{
-            _id: string,
-            title: string,
-            content: string,
-            imagePath: string
+            _id: string;
+            title: string;
+            content: string;
+            imagePath: string;
         }>(BACKEND_URL + id);
     }
 
