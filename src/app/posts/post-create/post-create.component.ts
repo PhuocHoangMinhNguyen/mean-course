@@ -22,7 +22,10 @@ export class PostCreateComponent implements OnInit {
     private mode = 'create';
     private postId: string;
 
-    constructor(public postsService: PostsService, public route: ActivatedRoute) { }
+    constructor(
+        public postsService: PostsService,
+        public route: ActivatedRoute
+    ) { }
 
     ngOnInit() {
         this.form = new FormGroup({
@@ -32,9 +35,15 @@ export class PostCreateComponent implements OnInit {
                     Validators.minLength(3)
                 ]
             }),
-            content: new FormControl(null, { validators: [Validators.required] }),
+            content: new FormControl(null, {
+                validators: [
+                    Validators.required
+                ]
+            }),
             image: new FormControl(null, {
-                validators: [Validators.required],
+                validators: [
+                    Validators.required
+                ],
                 asyncValidators: [mimeType]
             })
         });
@@ -90,7 +99,7 @@ export class PostCreateComponent implements OnInit {
             this.postsService.updatePost(
                 this.postId,
                 this.form.value.title,
-                this.form.value.enteredContent,
+                this.form.value.content,
                 this.form.value.image
             );
         }

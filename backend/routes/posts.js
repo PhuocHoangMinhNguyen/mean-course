@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
         const isValid = MIME_TYPE_MAP[file.mimetype];
         let error = new Error('Invalid mime type');
         if (isValid) {
-            error == null;
+            error = null;
         }
         cb(error, "images");
     },
@@ -64,7 +64,6 @@ router.put(
             imagePath: imagePath
         })
         Post.updateOne({ _id: req.params.id }, post).then(result => {
-            console.log(result);
             res.status(200).json({ message: 'Update successful!' });
         })
     });

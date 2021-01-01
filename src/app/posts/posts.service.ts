@@ -16,8 +16,7 @@ export class PostsService {
     constructor(private http: HttpClient, private router: Router) { }
 
     getPosts() {
-        this.http
-            .get<{ message: string, posts: any }>(BACKEND_URL)
+        this.http.get<{ message: string, posts: any }>(BACKEND_URL)
             .pipe(map(postData => {
                 return postData.posts.map(post => {
                     return {
@@ -89,7 +88,7 @@ export class PostsService {
                     id: id,
                     title: title,
                     content: content,
-                    imagePath: response.imagePath
+                    imagePath: ""
                 };
                 updatedPosts[oldPostIndex] = post;
                 this.posts = updatedPosts;
