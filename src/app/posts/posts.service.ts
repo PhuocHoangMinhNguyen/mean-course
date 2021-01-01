@@ -23,7 +23,8 @@ export class PostsService {
                     return {
                         title: post.title,
                         content: post.content,
-                        id: post._id
+                        id: post._id,
+                        imagePath: post.imagePath
                     };
                 });
             })).subscribe(transformedPosts => {
@@ -42,12 +43,19 @@ export class PostsService {
         );
     }
 
-    addPost(title: string, content: string) {
-        const post: Post = { id: null, title: title, content: content };
-        this.http.post<{ message: string, postId: string }>(BACKEND_URL, post)
+    addPost(title: string, content: string, image: File) {
+        const postData = new FormData();
+        postData.append("title", title);
+        postData.append("content", content);
+        postData.append("image", image, title);
+        this.http.post<{ message: string, post: Post }>(BACKEND_URL, postData)
             .subscribe(responseData => {
-                const id = responseData.postId;
-                post.id = id;
+                const post: Post = {
+                    id: responseData.post.id,
+                    title: title,
+                    content: content,
+                    imagePath: responseData.post.imagePath
+                }
                 this.posts.push(post);
                 this.postsUpdated.next([...this.posts]);
                 this.router.navigate(["/"]);
@@ -55,7 +63,7 @@ export class PostsService {
     }
 
     updatePost(id: string, title: string, content: string) {
-        const post: Post = { id: id, title: title, content: content };
+        const post: Post = { id: id, title: title, content: content, imagePath: null };
         this.http.put(BACKEND_URL + "/" + id, post).subscribe(response => {
             const updatedPosts = [...this.posts];
             const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);

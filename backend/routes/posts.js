@@ -7,7 +7,7 @@ const router = express.Router();
 
 const MIME_TYPE_MAP = {
     'image/png': 'png',
-    'image/jped': 'jpg',
+    'image/jpeg': 'jpg',
     'image/jpg': 'jpg'
 };
 
@@ -27,15 +27,20 @@ const storage = multer.diskStorage({
     }
 });
 
-router.post("", multer(storage).single("image"), (req, res, next) => {
+router.post("", multer({ storage: storage }).single("image"), (req, res, next) => {
+    const url = req.protocol + '://' + req.get("host");
     const post = new Post({
         title: req.body.title,
-        content: req.body.content
+        content: req.body.content,
+        imagePath: url + "/images/" + req.file.filename
     });
     post.save().then(createdPost => {
         res.status(201).json({
             message: 'Post added successfully',
-            postId: createdPost._id
+            post: {
+                ...createdPost,
+                id: createdPost._id
+            }
         });
     });
 });
