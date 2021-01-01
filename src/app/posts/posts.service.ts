@@ -15,8 +15,9 @@ export class PostsService {
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    getPosts() {
-        this.http.get<{ message: string, posts: any }>(BACKEND_URL)
+    getPosts(postsPerPage: number, currentPage: number) {
+        const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+        this.http.get<{ message: string, posts: any }>(BACKEND_URL + queryParams)
             .pipe(map(postData => {
                 return postData.posts.map(post => {
                     return {
