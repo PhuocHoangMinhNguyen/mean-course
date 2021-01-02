@@ -51,6 +51,7 @@ export class PostsService {
             title: string;
             content: string;
             imagePath: string;
+            creator: string;
         }>(BACKEND_URL + id);
     }
 
@@ -76,7 +77,8 @@ export class PostsService {
                 id: id,
                 title: title,
                 content: content,
-                imagePath: image
+                imagePath: image,
+                creator: null // we can get the id here, however, it might cause the data to be manipulate. Instead, this should be handle on the server
             }
         }
         this.http.put(BACKEND_URL + id, postData)
