@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
+import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
 
-import { environment } from './../../environments/environment';
-import { Post } from './post.model';
+import { environment } from "../../environments/environment";
+import { Post } from "./post.model";
 
 const BACKEND_URL = environment.apiUrl + "/posts/";
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
     private posts: Post[] = [];
-    private postsUpdated = new Subject<{ posts: Post[], postCount: number }>();
+    private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -72,13 +72,13 @@ export class PostsService {
                 postData
             )
             .subscribe(responseData => {
-                this.router.navigate(["/"])
+                this.router.navigate(["/"]);
             });
     }
 
     updatePost(id: string, title: string, content: string, image: File | string) {
         let postData: Post | FormData;
-        if (typeof (image) === "object") {
+        if (typeof image === "object") {
             postData = new FormData();
             postData.append("id", id);
             postData.append("title", title);
@@ -90,13 +90,13 @@ export class PostsService {
                 title: title,
                 content: content,
                 imagePath: image,
-                creator: null // we can get the id here, however, it might cause the data to be manipulate. Instead, this should be handle on the server
+                creator: null
             };
         }
         this.http
             .put(BACKEND_URL + id, postData)
             .subscribe(response => {
-                this.router.navigate(["/"])
+                this.router.navigate(["/"]);
             });
     }
 

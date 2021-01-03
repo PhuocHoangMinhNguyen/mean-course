@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 
 const PostController = require("../controllers/posts");
 
@@ -13,7 +13,7 @@ router.put("/:id", checkAuth, extractFile, PostController.updatePost);
 
 router.get("", PostController.getPosts);
 
-router.get('/:id', PostController.getPost);
+router.get("/:id", PostController.getPost);
 
 router.delete("/:id", checkAuth, PostController.deletePost);
 
