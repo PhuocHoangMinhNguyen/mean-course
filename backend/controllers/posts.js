@@ -21,7 +21,7 @@ exports.createPost = (req, res, next) => {
             message: 'Creating a post failed!'
         });
     });
-}
+};
 
 exports.updatePost = (req, res, next) => {
     let imagePath = req.body.imagePath;
@@ -48,7 +48,7 @@ exports.updatePost = (req, res, next) => {
                 message: "Couldn't update post!"
             });
         });
-}
+};
 
 exports.getPosts = (req, res, next) => {
     const pageSize = +req.query.pagesize;
@@ -72,7 +72,7 @@ exports.getPosts = (req, res, next) => {
             message: 'Fetching posts failed!'
         });
     });
-}
+};
 
 exports.getPost = (req, res, next) => {
     Post.findById(req.params.id).then(post => {
@@ -83,22 +83,22 @@ exports.getPost = (req, res, next) => {
         }
     }).catch(error => {
         res.status(500).json({
-            message: 'Fetching posts failed!'
+            message: 'Fetching post failed!'
         });
     });
-}
+};
 
 exports.deletePost = (req, res, next) => {
     Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
         .then(result => {
             if (result.n > 0) {
-                res.status(200).json({ message: 'Post Deleted!' });
+                res.status(200).json({ message: 'Deletion Successful!' });
             } else {
                 res.status(401).json({ message: 'Not Authorized!' });
             }
         }).catch(error => {
             res.status(500).json({
-                message: 'Fetching posts failed!'
+                message: 'Deleting posts failed!'
             });
         });
-}
+};

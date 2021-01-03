@@ -9,7 +9,7 @@ import { Post } from './post.model';
 
 const BACKEND_URL = environment.apiUrl + "/posts/";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class PostsService {
     private posts: Post[] = [];
     private postsUpdated = new Subject<{ posts: Post[], postCount: number }>();
@@ -60,8 +60,8 @@ export class PostsService {
         postData.append("title", title);
         postData.append("content", content);
         postData.append("image", image, title);
-        this.http.post<{ message: string, post: Post }>(BACKEND_URL, postData)
-            .subscribe(() => this.router.navigate(["/"]));
+        this.http.post<{ message: string; post: Post }>(BACKEND_URL, postData)
+            .subscribe(responseData => this.router.navigate(["/"]));
     }
 
     updatePost(id: string, title: string, content: string, image: File | string) {
@@ -82,7 +82,7 @@ export class PostsService {
             };
         }
         this.http.put(BACKEND_URL + id, postData)
-            .subscribe(() => this.router.navigate(["/"]))
+            .subscribe(response => this.router.navigate(["/"]))
     }
 
     deletePost(postId: string) {

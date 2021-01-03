@@ -8,10 +8,7 @@ import { PostListComponent } from './post-list/post-list.component';
 import { AngularMaterialModule } from './../angular-material.module';
 
 @NgModule({
-    declarations: [
-        PostCreateComponent,
-        PostListComponent
-    ],
+    declarations: [PostCreateComponent, PostListComponent],
     imports: [
         CommonModule,
         ReactiveFormsModule,
