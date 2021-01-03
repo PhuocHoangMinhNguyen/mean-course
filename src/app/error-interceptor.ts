@@ -1,15 +1,15 @@
 import {
-    HttpErrorResponse,
-    HttpHandler,
     HttpInterceptor,
-    HttpRequest
+    HttpRequest,
+    HttpHandler,
+    HttpErrorResponse
 } from "@angular/common/http";
-import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 
-import { ErrorComponent } from './error/error.component';
+import { ErrorComponent } from "./error/error.component";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
