@@ -1,6 +1,6 @@
-import { Subscription } from 'rxjs';
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { Subscription } from 'rxjs';
 
 import { AuthService } from './../auth.service';
 
@@ -16,9 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.authStatusSub = this.authService.getAuthStatusListener()
-            .subscribe(authStatus => {
-                this.isLoading = false
-            });
+            .subscribe(authStatus => this.isLoading = false);
     }
 
     onLogin(form: NgForm) {
