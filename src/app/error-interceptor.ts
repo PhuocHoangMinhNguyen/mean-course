@@ -4,10 +4,10 @@ import {
     HttpInterceptor,
     HttpRequest
 } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
 import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 
 import { ErrorComponent } from './error/error.component';
 

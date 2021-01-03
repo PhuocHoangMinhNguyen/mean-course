@@ -13,7 +13,6 @@ import { AuthService } from './../../auth/auth.service';
     templateUrl: './post-create.component.html',
     styleUrls: ['./post-create.component.css']
 })
-
 export class PostCreateComponent implements OnInit, OnDestroy {
     enteredTitle = '';
     enteredContent = '';
@@ -33,9 +32,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.authStatusSubs = this.authService.getAuthStatusListener()
-            .subscribe(authStatus => {
-                this.isLoading = false;
-            });
+            .subscribe(authStatus => this.isLoading = false);
         this.form = new FormGroup({
             title: new FormControl(null, {
                 validators: [

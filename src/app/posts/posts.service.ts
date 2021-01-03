@@ -79,7 +79,7 @@ export class PostsService {
                 content: content,
                 imagePath: image,
                 creator: null // we can get the id here, however, it might cause the data to be manipulate. Instead, this should be handle on the server
-            }
+            };
         }
         this.http.put(BACKEND_URL + id, postData)
             .subscribe(() => this.router.navigate(["/"]))
