@@ -18,21 +18,27 @@ export class PostsService {
 
     getPosts(postsPerPage: number, currentPage: number) {
         const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
-        this.http.get<{ message: string, posts: any, maxPosts: number }>(BACKEND_URL + queryParams)
-            .pipe(map(postData => {
-                return {
-                    posts: postData.posts.map(post => {
-                        return {
-                            title: post.title,
-                            content: post.content,
-                            id: post._id,
-                            imagePath: post.imagePath,
-                            creator: post.creator
-                        };
-                    }),
-                    maxPosts: postData.maxPosts
-                };
-            })).subscribe(transformedPostData => {
+        this.http
+            .get<{ message: string; posts: any; maxPosts: number }>(
+                BACKEND_URL + queryParams
+            )
+            .pipe(
+                map(postData => {
+                    return {
+                        posts: postData.posts.map(post => {
+                            return {
+                                title: post.title,
+                                content: post.content,
+                                id: post._id,
+                                imagePath: post.imagePath,
+                                creator: post.creator
+                            };
+                        }),
+                        maxPosts: postData.maxPosts
+                    };
+                })
+            )
+            .subscribe(transformedPostData => {
                 this.posts = transformedPostData.posts;
                 this.postsUpdated.next({
                     posts: [...this.posts],
@@ -60,13 +66,19 @@ export class PostsService {
         postData.append("title", title);
         postData.append("content", content);
         postData.append("image", image, title);
-        this.http.post<{ message: string; post: Post }>(BACKEND_URL, postData)
-            .subscribe(responseData => this.router.navigate(["/"]));
+        this.http
+            .post<{ message: string; post: Post }>(
+                BACKEND_URL,
+                postData
+            )
+            .subscribe(responseData => {
+                this.router.navigate(["/"])
+            });
     }
 
     updatePost(id: string, title: string, content: string, image: File | string) {
         let postData: Post | FormData;
-        if (typeof (image) === 'object') {
+        if (typeof (image) === "object") {
             postData = new FormData();
             postData.append("id", id);
             postData.append("title", title);
@@ -81,8 +93,11 @@ export class PostsService {
                 creator: null // we can get the id here, however, it might cause the data to be manipulate. Instead, this should be handle on the server
             };
         }
-        this.http.put(BACKEND_URL + id, postData)
-            .subscribe(response => this.router.navigate(["/"]))
+        this.http
+            .put(BACKEND_URL + id, postData)
+            .subscribe(response => {
+                this.router.navigate(["/"])
+            });
     }
 
     deletePost(postId: string) {
