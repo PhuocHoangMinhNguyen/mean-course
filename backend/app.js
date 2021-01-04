@@ -8,23 +8,23 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-mongoose
-    .connect(
-        "mongodb+srv://max:" +
-        process.env.MONGO_ATLAS_PW +
-        "@cluster0.yt8ea.mongodb.net/node-angular?retryWrites=true&w=majority",
-        { useNewUrlParser: true, useUnifiedTopology: true }
-    ).then(() => {
-        console.log("Connected to database!");
-    })
-    .catch(() => {
-        console.log("Connection failed!");
-    });
+mongoose.connect(
+    "mongodb+srv://max:" +
+    process.env.MONGO_ATLAS_PW +
+    "@cluster0.yt8ea.mongodb.net/node-angular?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+).then(() => {
+    console.log("Connected to database!");
+}).catch(() => {
+    console.log("Connection failed!");
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/", express.static(path.join(__dirname, "angular")));
+
+app.use("/images", express.static(path.join("backend/images")));
+// app.use("/images", express.static(path.join(__dirname, "images")));
+// app.use("/", express.static(path.join(__dirname, "angular")));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -41,9 +41,8 @@ app.use((req, res, next) => {
 
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
-
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "angular", "index.html"));
-});
+// app.use((req, res, next) => {
+//     res.sendFile(path.join(__dirname, "angular", "index.html"));
+// });
 
 module.exports = app;

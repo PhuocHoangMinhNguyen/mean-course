@@ -8,6 +8,7 @@ exports.createPost = (req, res, next) => {
         imagePath: url + "/images/" + req.file.filename,
         creator: req.userData.userId
     });
+    console.log(post.imagePath);
     post
         .save()
         .then(createdPost => {
