@@ -40,6 +40,8 @@ app.use((req, res, next) => {
 
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
+
+// to return index.html within backend/angular folder.
 app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "angular", "index.html"));
 });
